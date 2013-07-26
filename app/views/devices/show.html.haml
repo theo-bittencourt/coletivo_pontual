@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @device.title
+
+= link_to 'Edit', edit_device_path(@device)
+\|
+= link_to 'Back', devices_path
