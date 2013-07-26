@@ -1,5 +1,6 @@
 ColetivoPontual::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  # rack livereload
+  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -38,5 +39,4 @@ ColetivoPontual::Application.configure do
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
-
 end
