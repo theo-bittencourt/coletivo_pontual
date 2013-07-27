@@ -61,6 +61,27 @@ class DevicesController < ApplicationController
     end
   end
 
+  def tracked_index_stream
+    response.headers['Content-Type'] = 'text/event-stream'
+    devices = Device.all
+    loop do
+      devices.each do |device|
+        device.on_receive_position do |position|
+          response.stream.write(sse(position, {event: 'tracker'}))
+        end
+      end
+    end
+  rescue IOError
+     # Client Disconnected
+  ensure
+    response.stream.close
+  end
+
+  def tracker
+    Device.connection.execute "NOTIFY tracker, #{Device.connection.quote params[:position].to_json}"
+    render nothing: true
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device
@@ -70,5 +91,9 @@ class DevicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
       params.require(:device).permit(:title)
+    end
+
+    def sse(object, options = {})
+      (options.map{|k,v| "#{k}: #{v}" } << "data: #{JSON.dump object}").join("\n") + "\n\n"
     end
 end

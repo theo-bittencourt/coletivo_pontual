@@ -1,20 +1,13 @@
-%h1 Listing devices
+%h1 Devices
 
-%table
-  %tr
-    %th Title
-    %th
-    %th
-    %th
-
+%table.table
   - @devices.each do |device|
     %tr
-      %td= device.title
-      %td= link_to 'Bind', '#', id: 'bind'
+      %td= button_to_function device.title, "new CP.PositionEmitter('#{device.id}', '#{device.title}')", class: 'btn'
       %td= link_to 'Show', device
       %td= link_to 'Edit', edit_device_path(device)
       %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Device', new_device_path
+= link_to 'Novo', new_device_path, class: 'btn btn-large'

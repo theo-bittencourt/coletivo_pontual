@@ -1,5 +1,8 @@
 ColetivoPontual::Application.routes.draw do
   root to: 'application#index'
-  get '/tracker' => 'application#tracker'
-  resources :devices
+
+  resources :devices do
+    get 'tracked_index_stream', on: :collection
+    get 'tracker', on: :member
+  end
 end

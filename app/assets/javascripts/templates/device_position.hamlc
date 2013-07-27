@@ -1,0 +1,27 @@
+%dl.dl-horizontal
+  %dt Device Name
+  %dd= @name
+
+  %dt Latitude
+  %dd= @latitude
+
+  %dt Longitude
+  %dd= @longitude
+
+  %dt Accuracy
+  %dd= @accuracy
+
+  %dt Altitude
+  %dd= @altitude
+
+  %dt Heading
+  %dd= @heading
+
+  %dt Speed
+  %dd= @speed
+
+  %dt Altitude Accuracy
+  %dd= @altitude_accuracy
+
+  %dt Timestamp
+  %dd= @timestamp
