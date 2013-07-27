@@ -5,6 +5,7 @@
       %title= content_for?(:title) ? yield(:title) : "Coletivo Pontual"
       %meta{:content => content_for?(:description) ? yield(:description) : "Coletivo Pontual", :name => "description"}
         = stylesheet_link_tag "application", :media => "all"
+        = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ7fkG6h4PFzrThGM-SfPrg2x-NPRHQhA&sensor=true"
         = javascript_include_tag "application"
         = csrf_meta_tags
         = yield(:head)

@@ -3,7 +3,7 @@
 %table.table
   - @devices.each do |device|
     %tr
-      %td= button_to_function device.title, "new CP.PositionEmitter('#{device.id}', '#{device.title}')", class: 'btn'
+      %td= button_to_function device.title, "new CP.BusDevice('#{device.id}', '#{device.title}')", class: 'btn'
       %td= link_to 'Show', device
       %td= link_to 'Edit', edit_device_path(device)
       %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }

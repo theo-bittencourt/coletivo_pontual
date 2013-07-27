@@ -1,4 +1,4 @@
-class PositionEmitter
+class BusDevice
   constructor: (@id, @title) ->
     @startPolling()
 
@@ -15,7 +15,7 @@ class PositionEmitter
     )
 
   success: (pos) =>
-    data = {
+    @positionData =
       id:                @id,
       name:              @title,
       latitude:          pos.coords.latitude,
@@ -26,11 +26,32 @@ class PositionEmitter
       speed:             pos.coords.speed,
       altitude_accuracy: pos.coords.altitudeAccuracy,
       timestamp:         Date.now()
-    }
 
-    $.get "/devices/#{@id}/tracker", {position: data}
+    @positionData.eta = @getETA()
+
+    $.get "/devices/#{@id}/tracker", {position: @positionData}
 
   errorGettingPosition: (e) =>
     console.log e
 
-CP.PositionEmitter = PositionEmitter
+  coords: ->
+    new google.maps.LatLng(-22.948751,-43.185803)
+
+  userCoords: ->
+    new google.maps.LatLng(@positionData.latitude, @positionData.longitude)
+
+  getETA: ->
+    service = new google.maps.DistanceMatrixService
+    options =
+      origins:           [@coords()]
+      destinations:      [@userCoords()]
+      travelMode:        google.maps.TravelMode.DRIVING
+      durationInTraffic: true
+      avoidHighways:     false
+      avoidTolls:        false
+
+    service.getDistanceMatrix options, (response, status) =>
+      @eta = response.rows[0].elements[0].duration.text
+    @eta
+
+CP.BusDevice = BusDevice

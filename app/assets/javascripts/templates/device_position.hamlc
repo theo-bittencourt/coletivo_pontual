@@ -1,27 +1,31 @@
 %dl.dl-horizontal
+  %dt ETA
+  %dd.eta= @eta
+  .clearfix
   %dt Device Name
   %dd= @name
-
+  .clearfix
   %dt Latitude
   %dd= @latitude
-
+  .clearfix
   %dt Longitude
   %dd= @longitude
-
+  .clearfix
   %dt Accuracy
   %dd= @accuracy
-
+  .clearfix
   %dt Altitude
   %dd= @altitude
-
+  .clearfix
   %dt Heading
   %dd= @heading
-
+  .clearfix
   %dt Speed
   %dd= @speed
-
+  .clearfix
   %dt Altitude Accuracy
   %dd= @altitude_accuracy
-
+  .clearfix
   %dt Timestamp
   %dd= @timestamp
+  .clearfix
